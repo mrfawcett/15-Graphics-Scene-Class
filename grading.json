@@ -1,0 +1,8 @@
+[
+ {"test": "HouseBasicsTest",  "name": "House: constructor and getters",             "points": 10},
+ {"test": "HouseDrawTest",    "name": "House.draw(Turtle) borrows a pen",           "points": 25},
+ {"test": "SceneHousesTest",  "name": "Scene has-a World and houses; getLargest",   "points": 15},
+ {"test": "SceneMakePenTest", "name": "Scene.makePen returns a configured Turtle",  "points": 10},
+ {"test": "SceneDrawAllTest", "name": "Scene.drawAll and totalSegments",            "points": 20},
+ {"test": "StreetTest",       "name": "Street fills a Scene by reference",          "points": 20}
+]

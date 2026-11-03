@@ -1,0 +1,87 @@
+name: Autograding Tests
+'on':
+  - push
+  - workflow_dispatch
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: "House: constructor and getters (10)"
+        id: housebasics
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "House: constructor and getters"
+          setup-command: ''
+          command: sh .github/grade.sh HouseBasicsTest
+          timeout: 5
+          max-score: 10
+      - name: "House.draw(Turtle) borrows a pen (25)"
+        id: housedraw
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "House.draw(Turtle) borrows a pen"
+          setup-command: ''
+          command: sh .github/grade.sh HouseDrawTest
+          timeout: 5
+          max-score: 25
+      - name: "Scene has-a World and houses; getLargest (15)"
+        id: scenehouses
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Scene has-a World and houses; getLargest"
+          setup-command: ''
+          command: sh .github/grade.sh SceneHousesTest
+          timeout: 5
+          max-score: 15
+      - name: "Scene.makePen returns a configured Turtle (10)"
+        id: scenemakepen
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Scene.makePen returns a configured Turtle"
+          setup-command: ''
+          command: sh .github/grade.sh SceneMakePenTest
+          timeout: 5
+          max-score: 10
+      - name: "Scene.drawAll and totalSegments (20)"
+        id: scenedrawall
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Scene.drawAll and totalSegments"
+          setup-command: ''
+          command: sh .github/grade.sh SceneDrawAllTest
+          timeout: 5
+          max-score: 20
+      - name: "Street fills a Scene by reference (20)"
+        id: street
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Street fills a Scene by reference"
+          setup-command: ''
+          command: sh .github/grade.sh StreetTest
+          timeout: 5
+          max-score: 20
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          HOUSEBASICS_RESULTS: "${{ steps.housebasics.outputs.result }}"
+          HOUSEDRAW_RESULTS: "${{ steps.housedraw.outputs.result }}"
+          SCENEHOUSES_RESULTS: "${{ steps.scenehouses.outputs.result }}"
+          SCENEMAKEPEN_RESULTS: "${{ steps.scenemakepen.outputs.result }}"
+          SCENEDRAWALL_RESULTS: "${{ steps.scenedrawall.outputs.result }}"
+          STREET_RESULTS: "${{ steps.street.outputs.result }}"
+        with:
+          runners: housebasics,housedraw,scenehouses,scenemakepen,scenedrawall,street
