@@ -34,6 +34,7 @@ public class Scene {
      * Builds a World of the given size and an empty list of houses.
      * Example: new Scene(640, 400) has getWorld().getWidth() 640,
      * getWorld().getHeight() 400 and getHouseCount() 0.
+     * Hint: To create a new ArryList you'll need to use new ArrayList<House>();
      */
     public Scene(int width, int height) {
         // Insert your code below
@@ -53,6 +54,8 @@ public class Scene {
      * Precondition: h is not null
      * Adds h to the end of the list. Adding the same House twice stores it
      * twice.
+     * Hint: To add to an ArryList you'll need to use its .add(element) method. 
+     * The element to add is the arguement to pass
      */
     public void addHouse(House h) {
         // Insert your code below
@@ -61,6 +64,7 @@ public class Scene {
 
     /** COMPLETE THIS METHOD
      * Returns how many houses have been added.
+     * Hint: The .size() method returns how many elements are in an ArrayList
      */
     public int getHouseCount() {
         // Insert your code below
@@ -72,6 +76,7 @@ public class Scene {
      * Precondition: 0 <= i < getHouseCount()
      * Returns the house at position i, in the order they were added
      * (the first house added is getHouse(0)).
+     * Hint: The .get(int i) method returns the element at index i.
      */
     public House getHouse(int i) {
         // Insert your code below
